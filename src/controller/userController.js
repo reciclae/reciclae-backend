@@ -1,0 +1,128 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const UserModel = require("../model/userModel");
+
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).json({ message: "Fields missing" });
+  
+    const user = await UserModel.findOne({ email: email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+  
+    const checkPassword = await bcrypt.compare(password, user.password);
+    if (!checkPassword)
+      return res.status(401).json({ message: "Password is incorrect" });
+  
+    try {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: 3600,
+      });
+      res
+        .status(200)
+        .json({ message: "Authentication performed successfully", token });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ message: "Server side error ocurred" });
+    }
+};
+
+const signin = async (req, res) => {
+    const { realName, userName, email, password, confirmPassword } = req.body;
+    if (!realName || !userName || !email || !password || !confirmPassword)
+      return res.status(400).json({ message: "Fields missing" });
+    if (password !== confirmPassword)
+      return res.status(400).json({ message: "Passwords do not match" });
+  
+    const emailExist = await UserModel.findOne({ email });
+    if (emailExist) return res.status(422).json({ message: "User already registered, try using another email" });
+    
+    const userNameExist = await UserModel.findOne({ userName });
+    if (userNameExist) return res.status(422).json({ message: "User already registered, try using another user name" });
+  
+    const hashedPassword = await bcrypt.hash(
+      password,
+      Number(process.env.BCRYPT_SECRET)
+    );
+  
+    try {
+      await UserModel.create({
+        realName,
+        userName,
+        email,
+        password: hashedPassword,
+        avatar: "default.png",
+      });
+      const user = await UserModel.findOne({ email: email }, { password: 0 });
+      res.status(201).json({ message: "User successfully registered", user });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ message: "Server side error ocurred" });
+    }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const { userName, password, confirmPassword } = req.body;
+    if (!userName || !password || !confirmPassword)
+      return res.status(400).json({ message: "Fields missing" });
+    if (password !== confirmPassword)
+      return res.status(400).json({ message: "Passwords do not match" });
+
+    const hashedPassword = await bcrypt.hash(
+      password,
+      Number(process.env.BCRYPT_SECRET)
+    );
+
+    await UserModel.findByIdAndUpdate(req.params.userID, {
+      userName,
+      password: hashedPassword,
+    });
+
+    const userUpdated = await UserModel.findById(req.params.userID, {
+      password: 0,
+    });
+    res.status(200).json({ message: "User successfully updated", userUpdated });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server side error ocurred" });
+  }
+};
+
+const updateAvatar = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload an image" });
+    }
+    
+    await UserModel.findByIdAndUpdate(req.params.userID, {
+      avatar: req.file.filename,
+    });
+    const user = await UserModel.findById(req.params.userID, { password: 0 });
+    res.status(200).json({ message: "Avatar successfully updated", user });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server side error ocurred" });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.userID);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    await UserModel.findByIdAndRemove(req.params.userID);
+    res.status(200).json({ message: "User successfully deleted", user });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server side error ocurred" });
+  }
+};
+
+module.exports = {
+    login,
+    signin,
+    updateUser,
+    updateAvatar,
+    deleteUser,
+}

@@ -1,0 +1,15 @@
+\Rotas API
+
+xGet - /userecopoints 	- {ID_User} 	= {EcoPoints[]} - Retorna os pontos referentes ao usuário
+xGet - /ecopoint		- {ID_EcoPoint}	= {EcoPoint}	- Retorna o ponto selecionado
+xGet - /ecopoints	- {}		= {EcoPoints[]}	- Retorna todos os pontos
+
+xPost - /login		- {Email, Senha}					= {ok}
+xPost - /signin		- {Nome, Email, Senha, ConfirmarSenha}			= {ok}
+xPost - /ecopoint	- {Nome, Horario, Tipo, Gerenciamento, Foto(opcional)}	= {ok}
+
+xPut - /ecopoint		- {Nome, Horario, Tipo, Gerenciamento, Foto(opcional)}	= {ok}
+xPut - /user		- {Nome, Senha, ConfirmarSenha}				= {ok}
+
+xDelete - /ecopoint	- {ID_EcoPoint, Senha, ConfirmarSenha}		= {ok}
+xDelete - /user		- {ID_User, Email, Senha, ConfirmarSenha}	= {ok}
