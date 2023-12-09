@@ -3,6 +3,16 @@ const jwt = require("jsonwebtoken");
 
 const UserModel = require("../model/userModel");
 
+const findall = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    res.status(200).json({users});
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server side error ocurred" }); 
+  }
+}
+
 const login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password)
@@ -17,7 +27,7 @@ const login = async (req, res) => {
   
     try {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: 3600,
+        expiresIn: 86400,
       });
       res
         .status(200)
@@ -29,8 +39,8 @@ const login = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-    const { realName, userName, email, password, confirmPassword } = req.body;
-    if (!realName || !userName || !email || !password || !confirmPassword)
+    const { userName, email, password, confirmPassword } = req.body;
+    if (!userName || !email || !password || !confirmPassword)
       return res.status(400).json({ message: "Fields missing" });
     if (password !== confirmPassword)
       return res.status(400).json({ message: "Passwords do not match" });
@@ -48,7 +58,6 @@ const signin = async (req, res) => {
   
     try {
       await UserModel.create({
-        realName,
         userName,
         email,
         password: hashedPassword,
@@ -111,7 +120,7 @@ const deleteUser = async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.userID);
     if (!user) return res.status(404).json({ message: "User not found" });
-    await UserModel.findByIdAndRemove(req.params.userID);
+    await UserModel.findByIdAndDelete(req.params.userID);
     res.status(200).json({ message: "User successfully deleted", user });
   } catch (error) {
     console.log(error.message);
@@ -125,4 +134,5 @@ module.exports = {
     updateUser,
     updateAvatar,
     deleteUser,
+    findall,
 }

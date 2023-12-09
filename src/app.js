@@ -5,7 +5,7 @@ const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 const publicUserRoutes = require("./routes/public/publicUserRoutes");
-// const privateUserRoutes = require("./routes/private/");
+const privateUserRoutes = require("./routes/private/privateUserRoutes");
 
 dotenv.config();
 connectToDatabase();
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(publicUserRoutes);
-// app.use(privateUserRoutes);
+app.use(privateUserRoutes);
 
 // Express Deployment 
 // app.listen(process.env.EXPRESS_PORT, () => console.log(`Running at: ${process.env.EXPRESS_HOST}`));
