@@ -19,7 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ecoPoints: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ecoPoint' }],
+  ecopoints: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ecopoint",
+  }],
 });
 
 const UserModel = mongoose.model("user", userSchema);
