@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const checkToken = require("../../middleware/Authorization");
 const ecoPointController = require("../../controller/ecoPointController");
+const uploadAvatar = require("../../middleware/uploadImage");
 
 router.get("/ecopoints", checkToken, ecoPointController.getPoints);
-router.post("/ecopoint", checkToken, ecoPointController.createPoint);
+router.post("/ecopoint", uploadAvatar.single('image'), ecoPointController.createPoint);
 router.get("/ecopoint/:ecoPointID", checkToken, ecoPointController.getPoint);
 router.get("/userecopoint/:userID", checkToken, ecoPointController.getUserPoints);
 router.put("/ecopoint/:ecoPointID", checkToken, ecoPointController.updatePoint);

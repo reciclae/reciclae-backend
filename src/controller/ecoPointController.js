@@ -11,12 +11,12 @@ const getPoints = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
     }
-}
+};
 
 const createPoint = async (req, res) => {
     try {
         const { name, latitude, longitude, user } = req.body;
-    
+
         if (!name || !latitude || !longitude || !user)
             return res.status(400).json({ message: "Fields missing" });
 
@@ -26,7 +26,13 @@ const createPoint = async (req, res) => {
         const userExist = await UserModel.findOne({_id:user});
         if (!userExist) return res.status(422).json({ message: "User Does not Exist" });        
         
-        const ecoPoint = await EcoPointModel.create({ name, latitude, longitude, user });
+        const ecoPoint = await EcoPointModel.create( req.body );        
+
+        if (req.file) {
+            await EcoPointModel.findByIdAndUpdate(ecoPoint._id, {
+                image: req.file.filename,
+            });
+        }
         
         // Atualiza o usuário com o ID do novo ponto ecológico
         const updatedUser = await UserModel.findByIdAndUpdate(
@@ -52,7 +58,7 @@ const getPoint = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
     }
-}
+};
 
 const getUserPoints = async (req, res) => {
     try {        
@@ -64,7 +70,7 @@ const getUserPoints = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
     }
-}
+};
 
 const updatePoint = async (req, res) => {
     try {
@@ -73,13 +79,19 @@ const updatePoint = async (req, res) => {
 
         await EcoPointModel.findByIdAndUpdate(req.params.ecoPointID, req.body);
 
+        if (req.file) {
+            await EcoPointModel.findByIdAndUpdate(req.params.ecoPointID, {
+                image: req.file.filename,
+            });
+        }
+
         const ecoPointUpdated = await EcoPointModel.findById(req.params.ecoPointID,);
         res.status(200).json({ message: "Eco Point successfully updated", ecoPointUpdated });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
     }
-}
+};
 
 const deletePoint = async (req, res) => {
     try {

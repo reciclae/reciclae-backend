@@ -1,0 +1,273 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PW2",
+    "dateExported": "2023-12-09T20:25:52.706Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "User",
+            "containerId": "",
+            "created": "2023-12-09T18:05:26.982Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "Eco Point",
+            "containerId": "",
+            "created": "2023-12-09T18:06:15.553Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "6874f858-5833-4efe-a75f-0843a1dbf416",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "Sign in",
+            "url": "http://localhost:3001/signin",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-09T16:12:43.837Z",
+            "modified": "2023-12-09T16:16:49.824Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userName\": \"Junior\",\n  \"email\" : \"junior@email.com\",\n  \"password\" : \"1234\",\n  \"confirmPassword\" : \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d61e52e9-7e94-4204-92e7-9006b62dd16e",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "get all points",
+            "url": "http://localhost:3001/ecopoints",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-12-09T18:10:39.606Z",
+            "modified": "2023-12-09T18:18:15.277Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "4494e561-7384-4856-886b-2334db1ccdb6",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "Login",
+            "url": "http://localhost:3001/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-09T16:17:48.845Z",
+            "modified": "2023-12-09T18:18:06.451Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\" : \"junior@email.com\",\n  \"password\" : \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b84bb4f0-5ccd-41f4-a98b-442ca90b8203",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "get Users",
+            "url": "http://localhost:3001/users/561273456sdf1vKOHr0oi3uj4098kasdjf",
+            "method": "GET",
+            "sortNum": 22500,
+            "created": "2023-12-09T17:54:01.812Z",
+            "modified": "2023-12-09T17:59:29.720Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzQ5MzE4NzU0ZjIwMTg3NjNkMjJiMCIsImlhdCI6MTcwMjE0MzM5OCwiZXhwIjoxNzAyMjI5Nzk4fQ.brAuqLsLWGE8CKWJsqM0YIZsKTZR-Rk4ke0G7tcwdJ0"
+            },
+            "tests": []
+        },
+        {
+            "_id": "461455f1-a7a7-415f-b22c-a0f0b7b87033",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "update User",
+            "url": "http://localhost:3001/user/65749318754f2018763d22b0",
+            "method": "PUT",
+            "sortNum": 23750,
+            "created": "2023-12-09T16:55:36.125Z",
+            "modified": "2023-12-09T17:37:38.234Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userName\" : \"junior@email.com\",\n  \"password\" : \"12345\",\n  \"confirmPassword\" : \"12345\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzQ5MzE4NzU0ZjIwMTg3NjNkMjJiMCIsImlhdCI6MTcwMjE0MzM5OCwiZXhwIjoxNzAyMjI5Nzk4fQ.brAuqLsLWGE8CKWJsqM0YIZsKTZR-Rk4ke0G7tcwdJ0"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7535ad2c-aa64-44e0-981b-5d4e39152aa2",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "update User Avatar",
+            "url": "http://localhost:3001/user/avatar/65749318754f2018763d22b0",
+            "method": "PUT",
+            "sortNum": 25000,
+            "created": "2023-12-09T17:39:00.631Z",
+            "modified": "2023-12-09T17:43:35.391Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "image",
+                        "value": "/home/juniorsilva/Imagens/5620e731d023fe47da8838b565e8e713.jpg"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzQ5MzE4NzU0ZjIwMTg3NjNkMjJiMCIsImlhdCI6MTcwMjE0MzM5OCwiZXhwIjoxNzAyMjI5Nzk4fQ.brAuqLsLWGE8CKWJsqM0YIZsKTZR-Rk4ke0G7tcwdJ0"
+            },
+            "tests": []
+        },
+        {
+            "_id": "0f824b1c-0415-4d37-b0da-c6eb4878d154",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "create Point",
+            "url": "http://localhost:3001/ecopoint",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-12-09T18:06:31.450Z",
+            "modified": "2023-12-09T20:02:10.720Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Ponto do lixo\",\n  \"latitude\" : \"-123,1526\",\n  \"longitude\" : \"5,65035\",\n  \"user\" : \"6574c7b396631c6b720d7914\"\n} ",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "eee06e3e-1dd9-4093-b1d6-83be4a0a37d6",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "get point",
+            "url": "http://localhost:3001/ecopoint/6574c23f17fae3f9b022300f",
+            "method": "GET",
+            "sortNum": 35000,
+            "created": "2023-12-09T19:18:45.399Z",
+            "modified": "2023-12-09T19:48:10.315Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "7ae5d494-1c94-4142-8683-63ca6b3f1c5f",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "44ba05e7-8ce4-43ed-a7ed-d8afc168af8f",
+            "name": "delete User",
+            "url": "http://localhost:3001/user/65749318754f2018763d22b0",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-12-09T17:44:21.219Z",
+            "modified": "2023-12-09T18:03:52.976Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzQ5MzE4NzU0ZjIwMTg3NjNkMjJiMCIsImlhdCI6MTcwMjE0MzM5OCwiZXhwIjoxNzAyMjI5Nzk4fQ.brAuqLsLWGE8CKWJsqM0YIZsKTZR-Rk4ke0G7tcwdJ0"
+            },
+            "tests": []
+        },
+        {
+            "_id": "9b8758ca-ac49-41bd-bb9d-57963b9af9e8",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "get point by user",
+            "url": "http://localhost:3001/userecopoint/6574c7b396631c6b720d7914",
+            "method": "GET",
+            "sortNum": 45000,
+            "created": "2023-12-09T19:21:05.509Z",
+            "modified": "2023-12-09T20:13:01.526Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d4eb34af-34e8-41a8-b995-a58aabe801d7",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "update point",
+            "url": "http://localhost:3001/ecopoint/6574c7c296631c6b720d7919",
+            "method": "PUT",
+            "sortNum": 55000,
+            "created": "2023-12-09T20:19:11.792Z",
+            "modified": "2023-12-09T20:20:46.408Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Ponto do lixo atualizado\",\n  \"plastic\" : true\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "10a5565c-33a5-4359-9b79-b006a64e540b",
+            "colId": "f1bfb3a8-19be-4c4e-a9ba-291cc6221937",
+            "containerId": "15240948-a9b9-4c17-839d-5beae3b0aa61",
+            "name": "delete point",
+            "url": "http://localhost:3001/ecopoint/6574c7c296631c6b720d7919",
+            "method": "DELETE",
+            "sortNum": 65000,
+            "created": "2023-12-09T20:23:06.902Z",
+            "modified": "2023-12-09T20:23:27.839Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzRhZjUzNDYxOTMwNDI0OTAzY2JhOSIsImlhdCI6MTcwMjE0NTg4NiwiZXhwIjoxNzAyMjMyMjg2fQ.n3uWtBHIg76m-mszWSIAXLXclsFFVmWnnaV74yOUg5o"
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:3001"
+        }
+    }
+}
