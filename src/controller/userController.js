@@ -29,9 +29,10 @@ const login = async (req, res) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: 86400,
       });
+      const userID = user._id;
       res
         .status(200)
-        .json({ message: "Authentication performed successfully", token });
+        .json({ message: "Authentication performed successfully", token,  userID });
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ message: "Server side error ocurred" });
@@ -89,27 +90,16 @@ const updateUser = async (req, res) => {
       password: hashedPassword,
     });
 
+    if (req.file) {
+      await UserModel.findByIdAndUpdate(req.params.userID, {
+        avatar: req.file.filename,
+      });
+    }
+
     const userUpdated = await UserModel.findById(req.params.userID, {
       password: 0,
     });
     res.status(200).json({ message: "User successfully updated", userUpdated });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ message: "Server side error ocurred" });
-  }
-};
-
-const updateAvatar = async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: "Please upload an image" });
-    }
-    
-    await UserModel.findByIdAndUpdate(req.params.userID, {
-      avatar: req.file.filename,
-    });
-    const user = await UserModel.findById(req.params.userID, { password: 0 });
-    res.status(200).json({ message: "Avatar successfully updated", user });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: "Server side error ocurred" });
@@ -132,7 +122,6 @@ module.exports = {
     login,
     signin,
     updateUser,
-    updateAvatar,
     deleteUser,
     findall,
-}
+};
