@@ -19,6 +19,7 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Fields missing" });
   
     const user = await UserModel.findOne({ email: email });
+    
     if (!user) return res.status(404).json({ message: "User not found" });
   
     const checkPassword = await bcrypt.compare(password, user.password);
@@ -31,7 +32,16 @@ const login = async (req, res) => {
       });
       res
         .status(200)
-        .json({ message: "Authentication performed successfully", token });
+        .json({
+          message: "Authentication performed successfully",
+          token,
+          userData: {
+            id: user._id,
+            username: user.userName,
+            email: user.email,
+            avatar: user.avatar
+          }
+        });
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ message: "Server side error ocurred" });
