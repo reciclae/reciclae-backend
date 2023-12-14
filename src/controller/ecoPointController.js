@@ -5,11 +5,20 @@ const { Types } = mongoose;
 
 const getPoints = async (req, res) => {
     try {
-        const ecoPoints = await EcoPointModel.find();
-        res.status(200).json({ecoPoints});
+        const ecoPoints = await EcoPointModel.find({}, { _id: 1, name: 1, latitude: 1, longitude: 1 });
+
+        // Convertendo o _id para uma representação de string
+        const formattedEcoPoints = ecoPoints.map(point => ({
+            id: point._id.toString(),
+            name: point.name,
+            latitude: point.latitude,
+            longitude: point.longitude,
+        }));
+
+        res.status(200).json(formattedEcoPoints);
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: "Server side error ocurred" }); 
+        res.status(500).json({ message: "Server side error ocurred" });
     }
 };
 
