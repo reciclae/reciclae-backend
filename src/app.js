@@ -12,7 +12,7 @@ const privateEcoPointRoutes = require("./routes/private/privateEcoPointRoutes");
 dotenv.config();
 connectToDatabase();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "src/public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
