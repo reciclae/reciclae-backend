@@ -5,10 +5,10 @@ const ecoPointController = require("../../controller/ecoPointController");
 const uploadAvatar = require("../../middleware/uploadImage");
 
 router.get("/ecopoints", checkToken, ecoPointController.getPoints);
-router.post("/ecopoint", uploadAvatar.single('image'), ecoPointController.createPoint);
+router.post("/ecopoint", checkToken, uploadAvatar.single('image'), ecoPointController.createPoint);
 router.get("/ecopoint/:ecoPointID", checkToken, ecoPointController.getPoint);
 router.get("/userecopoint/:userID", checkToken, ecoPointController.getUserPoints);
-router.put("/ecopoint/:ecoPointID", checkToken, ecoPointController.updatePoint);
+router.put("/ecopoint/:ecoPointID", checkToken, uploadAvatar.single('image'), ecoPointController.updatePoint);
 router.delete("/ecopoint/:ecoPointID", checkToken, ecoPointController.deletePoint);
 
 module.exports = router;

@@ -14,7 +14,6 @@ const getPoints = async (req, res) => {
             latitude: point.latitude,
             longitude: point.longitude,
         }));
-
         res.status(200).json(formattedEcoPoints);
     } catch (error) {
         console.log(error.message);
@@ -62,7 +61,7 @@ const getPoint = async (req, res) => {
         if (!Types.ObjectId.isValid(req.params.ecoPointID)) return res.status(422).json({ message: "Invalid Eco Point ID" });
         if (!await EcoPointModel.findById(req.params.ecoPointID)) return res.status(422).json({ message: "Eco Point does not exist" });
         const ecoPoint = await EcoPointModel.findById(req.params.ecoPointID);
-        res.status(200).json({ecoPoint});
+        res.status(200).json({ ...ecoPoint.toObject() });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
@@ -83,6 +82,7 @@ const getUserPoints = async (req, res) => {
 
 const updatePoint = async (req, res) => {
     try {
+        console.log(req.body);
         const { name } = req.body;
         if (!name) return res.status(400).json({ message: "Fields missing" });
 

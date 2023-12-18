@@ -28,7 +28,7 @@ const login = async (req, res) => {
   
     try {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: 86400,
+        expiresIn: 2592000,
       });
       const userID = user._id;
       res
@@ -84,6 +84,7 @@ const signin = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
+    console.log(req.body);
     const { userName, password, confirmPassword } = req.body;
     if (!userName || !password || !confirmPassword)
       return res.status(400).json({ message: "Fields missing" });
