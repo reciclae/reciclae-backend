@@ -119,13 +119,24 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.params.userID);
-    if (!user) return res.status(404).json({ message: "User not found" });
-    await UserModel.findByIdAndDelete(req.params.userID);
-    res.status(200).json({ message: "User successfully deleted", user });
+    const { password, confirmPassword } = req.body;
+    const user = await UserModel.findById(req.params.userID, { userName: 1, avatar: 1 });
+    if (!password || !confirmPassword)
+      return res.status(400).json({ message: "Fields missing" });
+    if (password !== confirmPassword)
+      return res.status(400).json({ message: "Passwords do not match" });
+    
+    const userWillDelete = await UserModel.findById(req.params.userID);
+    const passMatch = await bcrypt.compare(password, userWillDelete.password);
+
+    if (!passMatch)
+      return res.status(400).json({ message: "Wrong password" });
+    else
+      await UserModel.findByIdAndDelete(userWillDelete.id);
+    res.status(201).json({ message: "User successfully deleted" });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Server side error ocurred" });
+      res.status(500).json({ message: "Server side error ocurred" });
   }
 };
 
