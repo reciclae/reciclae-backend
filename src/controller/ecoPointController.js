@@ -73,7 +73,7 @@ const getUserPoints = async (req, res) => {
         if (!Types.ObjectId.isValid(req.params.userID)) return res.status(422).json({ message: "Invalid User ID" });
         if (!await UserModel.findById(req.params.userID)) return res.status(422).json({ message: "User does not exist" });
         const userEcoPoints = await UserModel.findById(req.params.userID).populate('ecopoints');
-        res.status(200).json({userEcoPoints});
+        res.status(200).json({ ...userEcoPoints.ecopoints.toObject() });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: "Server side error ocurred" }); 
@@ -114,6 +114,42 @@ const deletePoint = async (req, res) => {
     }
 };
 
+const getGraphicPoints = async (rea, res) => {
+    try {
+        const ecoPoints = await EcoPointModel.find();
+
+        let metal = 0;
+        let plastic = 0;
+        let paper = 0;
+        let glass = 0;
+        let organic = 0;
+        let electronic = 0;
+
+        ecoPoints.forEach((ecoPoint) => {
+            if (ecoPoint.metal === true) metal++;
+            if (ecoPoint.plastic === true) plastic++;
+            if (ecoPoint.paper === true) paper++;
+            if (ecoPoint.glass === true) glass++;
+            if (ecoPoint.organic === true) organic++;
+            if (ecoPoint.electronic === true) electronic++;
+        });
+
+        const graphic = {
+            metal: metal,
+            plastic: plastic,
+            paper: paper,
+            glass: glass,
+            organic: organic,
+            electronic: electronic,
+        };
+
+        res.status(200).json( graphic );        
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "Server side error ocurred" }); 
+    }
+}
+
 module.exports = {
     getPoints,
     createPoint,
@@ -121,4 +157,5 @@ module.exports = {
     getUserPoints,
     updatePoint,
     deletePoint,
+    getGraphicPoints,
 }
