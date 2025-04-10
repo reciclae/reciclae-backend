@@ -1,4 +1,6 @@
 const dotenv = require("dotenv");
+dotenv.config();
+
 const connectToDatabase = require("./database/mongodb");
 const express = require("express");
 const path = require("path");
@@ -10,7 +12,6 @@ const publicEcoPointRoutes = require("./routes/public/publicEcoPointRoutes");
 const privateUserRoutes = require("./routes/private/privateUserRoutes");
 const privateEcoPointRoutes = require("./routes/private/privateEcoPointRoutes");
 
-dotenv.config();
 connectToDatabase();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
