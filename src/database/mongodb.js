@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 
+let connectionString;
+
+if(process.env.MONGO_SERVER === "local") {
+  connectionString = `mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`;
+}
+if(process.env.MONGO_SERVER === "atlas") {
+  connectionString = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASS}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`;
+}
+
 const connectToDatabase = async () => {
-  await mongoose.connect(
-    // Connection to MongoDB Atlas. Commit this line bellow if you want to connect locally
-    // `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASS}@techforum.snedsy4.mongodb.net/?retryWrites=true&w=majority`,
-    
-    // Connection to MongoDB Locally.
-    `mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`
-    // Uncommit this line above if you want to connect locally, also change the environment variables to yours 
-  );
+  await mongoose.connect(connectionString);
 };
 
 module.exports = connectToDatabase;
